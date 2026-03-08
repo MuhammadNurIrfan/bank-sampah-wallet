@@ -1,13 +1,22 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Smartphone, Wallet, Leaf, ArrowRight } from "lucide-react";
 import MobileLayout from "@/components/MobileLayout";
+import { setAdminSession } from "@/lib/admin-auth";
 
 const Login = () => {
   const [phone, setPhone] = useState("");
   const [tab, setTab] = useState<"phone" | "wallet">("phone");
   const navigate = useNavigate();
+  const location = useLocation();
+  const adminRequired = (location.state as { adminRequired?: boolean })?.adminRequired;
+
+  useEffect(() => {
+    if (adminRequired) {
+      window.scrollTo(0, 0);
+    }
+  }, [adminRequired]);
 
   return (
     <MobileLayout className="flex flex-col">
@@ -28,8 +37,24 @@ const Login = () => {
 
         <div className="mt-10 mb-8">
           <h2 className="text-2xl font-bold text-foreground mb-1">Welcome back 👋</h2>
-          <p className="text-muted-foreground text-sm">Sign in to start recycling and earning rewards</p>
+          <p className="text-muted-foreground text-sm">
+            {adminRequired
+              ? "Silakan login sebagai Super Admin untuk mengakses panel admin."
+              : "Sign in to start recycling and earning rewards"}
+          </p>
         </div>
+
+        {adminRequired && (
+          <button
+            onClick={() => {
+              setAdminSession();
+              navigate("/admin", { replace: true });
+            }}
+            className="w-full mb-6 flex items-center justify-center gap-2 py-4 px-4 bg-primary/10 border-2 border-primary/30 text-primary font-semibold rounded-2xl hover:bg-primary/20 transition-colors active:scale-[0.98]"
+          >
+            Login sebagai Super Admin
+          </button>
+        )}
 
         {/* Tabs */}
         <div className="flex bg-muted rounded-xl p-1 mb-6">
