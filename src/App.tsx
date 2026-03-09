@@ -14,6 +14,7 @@ import ImpactDashboard from "./pages/ImpactDashboard";
 import RecycleMap from "./pages/RecycleMap";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
+import AdminLogin from "./pages/AdminLogin";
 import AdminLayout from "./components/admin/AdminLayout";
 import AdminRouteGuard from "./components/admin/AdminRouteGuard";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -34,6 +35,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Onboarding />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/admin-login" element={<AdminLogin />} />
           <Route path="/profile-setup" element={<ProfileSetup />} />
           <Route path="/home" element={<Home />} />
           <Route path="/recycle" element={<RecycleSubmit />} />

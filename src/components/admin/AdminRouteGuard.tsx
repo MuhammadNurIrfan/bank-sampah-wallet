@@ -1,4 +1,4 @@
-import { Outlet, Navigate, useLocation } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 
 /**
@@ -6,17 +6,10 @@ import { isAdminAuthenticated } from "@/lib/admin-auth";
  * Ganti pengecekan isAdminAuthenticated() dengan auth real (JWT, API) saat backend siap.
  */
 const AdminRouteGuard = () => {
-  const location = useLocation();
   const isAdmin = isAdminAuthenticated();
 
   if (!isAdmin) {
-    return (
-      <Navigate
-        to="/login"
-        state={{ from: location, adminRequired: true }}
-        replace
-      />
-    );
+    return <Navigate to="/admin-login" replace />;
   }
 
   return <Outlet />;

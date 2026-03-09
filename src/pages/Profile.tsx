@@ -115,7 +115,10 @@ const Profile = () => {
             ))}
           </div>
 
-          <button className="w-full flex items-center justify-center gap-2 mt-4 py-3 text-destructive text-sm font-medium">
+          <button
+            onClick={() => navigate("/login", { replace: true })}
+            className="w-full flex items-center justify-center gap-2 mt-4 py-3 text-destructive text-sm font-medium hover:bg-destructive/5 rounded-xl transition-colors"
+          >
             <LogOut size={16} /> Log Out
           </button>
         </div>
